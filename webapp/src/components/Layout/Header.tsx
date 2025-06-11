@@ -15,6 +15,7 @@ import { Logout as LogoutIcon } from "@mui/icons-material";
 import TodayIcon from "@mui/icons-material/Today";
 import { useProducts } from "../../context/ProductContext";
 import { useAuth } from "../../context/AuthContext";
+import LogoImg from "../../assets/images/logo.svg";
 
 export function Header() {
   const { state } = useProducts();
@@ -50,11 +51,11 @@ export function Header() {
     >
       <Toolbar sx={{ py: 3 }}>
         <Stack flexDirection={"row"} flexGrow={1} alignItems={"center"} gap={1}>
-          <Stack sx={{ display: { xs: "block", md: "none" } }}>
-            <img src="/assets/logo.svg" width={30} height={30} alt="logo" />
+          <Stack alignItems={"center"}>
+            <img src={LogoImg} width={50} alt="Logo" />
           </Stack>
           <Typography variant="h4" color={"black"} fontWeight={"700"}>
-            Product Management
+            SeedByte Product Management
           </Typography>
         </Stack>
         <Stack sx={{ flexDirection: "row", gap: 2 }}>
