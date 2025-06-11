@@ -15,6 +15,9 @@ import {
   MenuItem,
   Stack,
   Skeleton,
+  ListItem,
+  List,
+  Avatar,
 } from "@mui/material";
 import {
   Add as AddIcon,
@@ -46,17 +49,47 @@ const CATEGORIES = [
 ];
 
 const renderSkeletons = (count = ITEMS_PER_PAGE, viewMode: "grid" | "list") => (
-  <Grid container spacing={3}>
-    {Array.from({ length: count }).map((_, i) => (
-      <Grid item xs={12} sm={6} md={4} key={i}>
-        <Skeleton variant="rectangular" height={250} sx={{ borderRadius: 2 }} />
-        <Box sx={{ pt: 1 }}>
-          <Skeleton variant="text" width="80%" />
-          <Skeleton variant="text" width="60%" />
-        </Box>
+  <>
+    {viewMode === "grid" ? (
+      <List>
+        {Array.from({ length: count }).map((_, index) => (
+          <ListItem key={index} divider sx={{ m: 1 }}>
+            <Skeleton variant="circular">
+              <Avatar sx={{ width: 90, height: 90 }} />
+            </Skeleton>
+
+            <Stack sx={{ width: "100%", ml: 3 }} spacing={1}>
+              <Skeleton variant="text" width="40%" />
+              <Skeleton variant="text" width="90%" />
+              <Skeleton variant="text" width="70%" />
+              <Stack direction="row" spacing={2}>
+                <Skeleton variant="text" width="10%" />
+                <Skeleton variant="text" width="15%" />
+                <Skeleton variant="text" width="15%" />
+                <Skeleton variant="text" width="20%" />
+              </Stack>
+            </Stack>
+          </ListItem>
+        ))}
+      </List>
+    ) : (
+      <Grid container spacing={3}>
+        {Array.from({ length: count }).map((_, i) => (
+          <Grid item xs={12} sm={6} md={4} key={i}>
+            <Skeleton
+              variant="rectangular"
+              height={250}
+              sx={{ borderRadius: 2 }}
+            />
+            <Box sx={{ pt: 1 }}>
+              <Skeleton variant="text" width="80%" />
+              <Skeleton variant="text" width="60%" />
+            </Box>
+          </Grid>
+        ))}
       </Grid>
-    ))}
-  </Grid>
+    )}
+  </>
 );
 
 export const ProductsPage = () => {
