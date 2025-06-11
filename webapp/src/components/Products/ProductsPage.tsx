@@ -222,7 +222,14 @@ export function ProductsPage() {
         </Alert>
       )}
 
-      <Stack sx={{ overflow: "auto", height: `calc(100% - 200px)`, m: 3 }}>
+      <Stack
+        sx={{
+          overflow: "auto",
+          height: `calc(100% - 200px)`,
+          my: 3,
+          mx: 0,
+        }}
+      >
         {/* Products Display */}
         {paginatedProducts.length > 0 && (
           <>
