@@ -46,12 +46,15 @@ const DataCard = ({ title, icon, value, color }: DataCardProps) => {
         justifyItems={"center"}
         alignContent={"center"}
         alignItems={"center"}
-        sx={{ minWidth: 200 }}
+        flexDirection={"row"}
+        gap={2}
       >
-        <Typography variant="h6" color={`${color}.main`}>
+        <Typography variant="body1" color={`${color}.main`}>
           {title}
         </Typography>
-        <Typography variant="h5">{value}</Typography>
+        <Typography variant="body1" color={`${color}.main`}>
+          {value}
+        </Typography>
       </Stack>
     </Paper>
   );
