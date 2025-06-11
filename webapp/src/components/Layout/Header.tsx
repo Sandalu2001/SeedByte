@@ -48,7 +48,7 @@ export function Header() {
         bgcolor: "transparent",
       }}
     >
-      <Toolbar sx={{ py: 5 }}>
+      <Toolbar sx={{ py: 3 }}>
         <Stack flexDirection={"row"} flexGrow={1} alignItems={"center"} gap={1}>
           <Stack sx={{ display: { xs: "block", md: "none" } }}>
             <img src="/assets/logo.svg" width={30} height={30} alt="logo" />
@@ -61,7 +61,7 @@ export function Header() {
           <Paper
             variant="outlined"
             sx={{
-              borderRadius: 3,
+              borderRadius: 10,
               p: 1,
               display: "flex",
               flexDirection: "row",
