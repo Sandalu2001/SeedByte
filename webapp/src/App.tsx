@@ -9,7 +9,16 @@ function App() {
   const { state } = useAuth();
 
   if (!state.isAuthenticated) {
-    return <AuthScreen />;
+    return (
+      <Box
+        sx={{
+          height: "100vh",
+          backgroundColor: "background.default",
+        }}
+      >
+        <AuthScreen />
+      </Box>
+    );
   }
 
   return (
