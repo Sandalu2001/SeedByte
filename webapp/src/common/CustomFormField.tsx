@@ -1,6 +1,6 @@
 import { Grid, TextField, Typography } from "@mui/material";
 import React from "react";
-import { CustomFormFieldProps } from "../../types/componentInterfaces";
+import { CustomFormFieldProps } from "../types/componentInterfaces";
 
 const CustomFormField = ({
   name,
