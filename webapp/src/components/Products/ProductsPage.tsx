@@ -125,6 +125,40 @@ export function ProductsPage() {
           Products
         </Typography>
 
+        <Stack
+          sx={{
+            gap: 4,
+            alignItems: "center",
+            flexDirection: "row",
+          }}
+        >
+          <DataCard
+            title={"Total Products"}
+            value={state.products.length}
+            color={"primary"}
+          />
+          <DataCard
+            title={"Active Products"}
+            value={state.products.filter((p) => p.status === "active").length}
+            color={"success"}
+          />
+          <DataCard
+            title={"Low Stock"}
+            value={state.products.filter((p) => p.stock < 10).length}
+            color={"error"}
+          />
+          <DataCard
+            title={"Filtered Results"}
+            value={state.filteredProducts.length}
+            color={"secondary"}
+          />
+          <DataCard
+            title={"Total Categories"}
+            value={CATEGORIES.length}
+            color={"warning"}
+          />
+        </Stack>
+
         <Box sx={{ display: "flex", gap: 1 }}>
           <Tooltip title="Export Products">
             <IconButton onClick={exportProducts} sx={{ color: "primary.main" }}>
@@ -159,42 +193,6 @@ export function ProductsPage() {
       </Box>
 
       {/* Stats */}
-      <Stack
-        sx={{
-          gap: 4,
-          alignItems: "center",
-          flexDirection: "row",
-          alignContent: "space-between",
-          justifyContent: "space-between",
-          my: 4,
-        }}
-      >
-        <DataCard
-          title={"Total Products"}
-          value={state.products.length}
-          color={"primary"}
-        />
-        <DataCard
-          title={"Active Products"}
-          value={state.products.filter((p) => p.status === "active").length}
-          color={"success"}
-        />
-        <DataCard
-          title={"Low Stock"}
-          value={state.products.filter((p) => p.stock < 10).length}
-          color={"error"}
-        />
-        <DataCard
-          title={"Filtered Results"}
-          value={state.filteredProducts.length}
-          color={"secondary"}
-        />
-        <DataCard
-          title={"Total Categories"}
-          value={CATEGORIES.length}
-          color={"warning"}
-        />
-      </Stack>
 
       {/* Filters */}
       <ProductFiltersComponent
@@ -224,14 +222,14 @@ export function ProductsPage() {
         </Alert>
       )}
 
-      <Stack sx={{ overflow: "auto", height: `calc(100% - 300px)`, m: 3 }}>
+      <Stack sx={{ overflow: "auto", height: `calc(100% - 200px)`, m: 3 }}>
         {/* Products Display */}
         {paginatedProducts.length > 0 && (
           <>
             {state.viewMode === "grid" ? (
               <Grid container spacing={3}>
                 {paginatedProducts.map((product) => (
-                  <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
+                  <Grid item xs={12} sm={6} md={4} lg={4} key={product.id}>
                     <ProductCard
                       product={product}
                       onEdit={handleOpenForm}
