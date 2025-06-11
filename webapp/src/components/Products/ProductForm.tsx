@@ -14,6 +14,7 @@ import {
   CardMedia,
   IconButton,
   Stack,
+  alpha,
 } from "@mui/material";
 import {
   CloudUpload as UploadIcon,
@@ -132,6 +133,8 @@ export function ProductForm({
     formik.setFieldValue("tags", updated);
   };
 
+  console.log(formik);
+
   useEffect(() => {
     if (product) {
       formik.resetForm({
@@ -210,63 +213,79 @@ export function ProductForm({
       </IconButton>
       <DialogContent sx={{ p: 2, m: 0, paddingX: 3, height: "100%" }}>
         <Grid container spacing={4} alignItems="center">
-          <Grid container spacing={3}>
-            {/* Image Upload Section */}
-            <Grid item xs={12}>
-              <Typography variant="subtitle2" gutterBottom>
-                Product Image
-              </Typography>
-
-              {imagePreview ? (
-                <Card sx={{ mb: 2, width: "100%" }}>
-                  <CardMedia
-                    component="img"
-                    height="200"
-                    image={imagePreview}
-                    alt="Product preview"
-                    sx={{ objectFit: "cover" }}
-                  />
-                  <Box sx={{ p: 1, display: "flex", justifyContent: "center" }}>
-                    <IconButton onClick={handleRemoveImage} color="error">
-                      <DeleteIcon />
-                    </IconButton>
-                  </Box>
-                </Card>
-              ) : (
-                <Box
+          {/* Image Upload Section */}
+          <Grid item xs={12}>
+            <Typography variant="body1" gutterBottom>
+              Product Image
+            </Typography>
+            {imagePreview ? (
+              <Card
+                sx={{
+                  mb: 2,
+                  width: "100%",
+                  boxShadow: "none",
+                  border: 1,
+                  borderColor: "grey.300",
+                  borderRadius: 3,
+                  position: "relative",
+                }}
+              >
+                <DeleteIcon
+                  color="error"
+                  onClick={handleRemoveImage}
+                  fontSize="large"
                   sx={{
-                    width: "100%",
-                    border: "2px dashed",
-                    borderColor: "grey.300",
-                    borderRadius: 1,
-                    p: 3,
-                    textAlign: "center",
-                    cursor: "pointer",
-                    "&:hover": {
-                      borderColor: "primary.main",
-                      bgcolor: "action.hover",
+                    position: "absolute",
+                    bottom: 8,
+                    right: 8,
+                    ":hover": {
+                      cursor: "pointer",
                     },
                   }}
-                  onClick={() => fileInputRef.current?.click()}
-                >
-                  <UploadIcon sx={{ fontSize: 48, color: "grey.400", mb: 1 }} />
-                  <Typography variant="body2" color="text.secondary">
-                    Click to upload product image
-                  </Typography>
-                  <Typography variant="caption" color="text.secondary">
-                    Max file size: 5MB
-                  </Typography>
-                </Box>
-              )}
+                />
+                <CardMedia
+                  component="img"
+                  height="200"
+                  image={imagePreview}
+                  alt="Product preview"
+                  sx={{ objectFit: "cover" }}
+                />
+              </Card>
+            ) : (
+              <Box
+                sx={{
+                  width: "100%",
+                  border: "2px dashed",
+                  borderColor: "grey.300",
+                  borderRadius: 3,
+                  p: 3,
+                  textAlign: "center",
+                  cursor: "pointer",
+                  "&:hover": {
+                    transitionDuration: "0.2s",
+                    borderColor: "primary.main",
+                    bgcolor: "action.hover",
+                  },
+                }}
+                onClick={() => fileInputRef.current?.click()}
+              >
+                <UploadIcon sx={{ fontSize: 48, color: "grey.400", mb: 1 }} />
+                <Typography variant="body2" color="text.secondary">
+                  Click to upload product image
+                </Typography>
+                <Typography variant="caption" color="text.secondary">
+                  Max file size: 5MB
+                </Typography>
+              </Box>
+            )}
 
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload}
-                style={{ display: "none" }}
-              />
-            </Grid>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              style={{ display: "none" }}
+            />
           </Grid>
           <CustomFormField
             name={"name"}
@@ -395,7 +414,6 @@ export function ProductForm({
               formik.handleSubmit(e as any)
             }
             startIcon={<AddIcon fontSize="small" />}
-            disabled={!formik.isValid}
           >
             Add
           </Button>
