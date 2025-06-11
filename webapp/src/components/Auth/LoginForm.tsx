@@ -7,16 +7,13 @@ import {
   alpha,
   Link,
   Stack,
-  Divider,
   LinearProgress,
-  Avatar,
   IconButton,
 } from "@mui/material";
 import * as yup from "yup";
 import { useAuth } from "../../context/AuthContext";
 import CustomTextField from "../../common/CustomTextField";
-import FacebookIcon from "../../assets/images/facebook.png";
-import GoogleIcon from "../../assets/images/google.png";
+import LogoImg from "../../assets/images/logo.svg";
 import LoginImg from "../../assets/images/login.svg";
 import MailOutlineRoundedIcon from "@mui/icons-material/MailOutlineRounded";
 import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
@@ -77,14 +74,16 @@ export const LoginForm = ({ onSwitchToRegister }: LoginFormProps) => {
       <Stack flexDirection={"row"} gap={0} sx={{ height: "100%" }}>
         <Box
           sx={{
+            display: { xs: "none", md: "block" },
+            height: "100%",
             flex: 4,
             background: (theme) => alpha(theme.palette.grey[500], 0.1),
           }}
         >
           <Stack
             sx={{
-              m: 12,
-              mt: 20,
+              justifyContent: "center",
+              height: "100%",
               alignItems: "center",
             }}
             gap={8}
@@ -103,8 +102,18 @@ export const LoginForm = ({ onSwitchToRegister }: LoginFormProps) => {
         </Box>
 
         <Box sx={{ flex: 4 }}>
-          <Stack sx={{ m: 12, marginX: 20 }} gap={4}>
-            <Stack gap={1.5}>
+          <Stack
+            sx={{
+              justifyContent: "center",
+              height: "100%",
+              mx: { xs: 6, md: 10 },
+            }}
+            gap={4}
+          >
+            <Stack gap={1.5} sx={{ textAlign: "center" }}>
+              <Stack alignItems={"center"}>
+                <img src={LogoImg} width={50} alt="Logo" />
+              </Stack>
               <Typography variant="h4" fontWeight={600}>
                 Welcome back
               </Typography>
@@ -169,31 +178,6 @@ export const LoginForm = ({ onSwitchToRegister }: LoginFormProps) => {
                 }}
               >
                 Login
-              </Button>
-            </Stack>
-            <Divider textAlign="center" sx={{ fontSize: 14 }}>
-              or
-            </Divider>
-            <Stack gap={2} flexDirection={"row"}>
-              <Button
-                variant="outlined"
-                sx={{ borderRadius: 2, flex: 1 }}
-                color="inherit"
-                startIcon={
-                  <Avatar sx={{ width: 25, height: 25 }} src={GoogleIcon} />
-                }
-              >
-                Google
-              </Button>
-              <Button
-                variant="outlined"
-                sx={{ borderRadius: 2, flex: 1 }}
-                color="inherit"
-                startIcon={
-                  <Avatar sx={{ width: 25, height: 25 }} src={FacebookIcon} />
-                }
-              >
-                Facebook
               </Button>
             </Stack>
             <Stack
