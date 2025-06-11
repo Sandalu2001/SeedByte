@@ -14,6 +14,7 @@ import {
   Select,
   MenuItem,
   Stack,
+  Skeleton,
 } from "@mui/material";
 import {
   Add as AddIcon,
@@ -44,7 +45,21 @@ const CATEGORIES = [
   "Health",
 ];
 
-export function ProductsPage() {
+const renderSkeletons = (count = ITEMS_PER_PAGE, viewMode: "grid" | "list") => (
+  <Grid container spacing={3}>
+    {Array.from({ length: count }).map((_, i) => (
+      <Grid item xs={12} sm={6} md={4} key={i}>
+        <Skeleton variant="rectangular" height={250} sx={{ borderRadius: 2 }} />
+        <Box sx={{ pt: 1 }}>
+          <Skeleton variant="text" width="80%" />
+          <Skeleton variant="text" width="60%" />
+        </Box>
+      </Grid>
+    ))}
+  </Grid>
+);
+
+export const ProductsPage = () => {
   const {
     state,
     addProduct,
@@ -90,6 +105,19 @@ export function ProductsPage() {
       payload: state.viewMode === "grid" ? "list" : "grid",
     });
   };
+
+  useEffect(() => {
+    dispatch({ type: "SET_LOADING", payload: true });
+
+    setTimeout(() => {
+      const stored = localStorage.getItem("products");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        dispatch({ type: "SET_VIEW_MODE", payload: parsed });
+      }
+      dispatch({ type: "SET_LOADING", payload: false });
+    }, 1000);
+  }, []);
 
   // Pagination
   const totalPages = Math.ceil(state.filteredProducts.length / ITEMS_PER_PAGE);
@@ -233,7 +261,9 @@ export function ProductsPage() {
         {/* Products Display */}
         {paginatedProducts.length > 0 && (
           <>
-            {state.viewMode === "grid" ? (
+            {state.isLoading ? (
+              renderSkeletons(ITEMS_PER_PAGE, "grid")
+            ) : state.viewMode === "grid" ? (
               <Grid container spacing={3}>
                 {paginatedProducts.map((product) => (
                   <Grid item xs={12} sm={6} md={4} lg={4} key={product.id}>
@@ -279,4 +309,4 @@ export function ProductsPage() {
       />
     </Paper>
   );
-}
+};
