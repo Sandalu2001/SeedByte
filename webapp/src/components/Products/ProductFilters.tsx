@@ -47,7 +47,11 @@ export function ProductFiltersComponent({
   return (
     <Stack gap={3}>
       {/* Search - Always visible */}
-      <Stack flexDirection={"row"} justifyContent={"space-between"} gap={1}>
+      <Stack
+        flexDirection={"row"}
+        justifyContent={"space-between"}
+        gap={hasActiveFilters ? 3 : 0}
+      >
         <TextField
           fullWidth
           label="Search products..."
