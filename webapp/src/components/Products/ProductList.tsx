@@ -12,6 +12,7 @@ import {
   Paper,
   useTheme,
   alpha,
+  Stack,
 } from "@mui/material";
 import {
   Edit as EditIcon,
@@ -42,6 +43,7 @@ export function ProductList({ products, onEdit, onDelete }: ProductListProps) {
       sx={{
         borderRadius: 3,
         background: (theme) => alpha(theme.palette.primary.main, 0.1),
+        px: 2,
       }}
     >
       <List>
@@ -53,35 +55,44 @@ export function ProductList({ products, onEdit, onDelete }: ProductListProps) {
                 index < products.length - 1
                   ? `1px solid ${theme.palette.divider}`
                   : "none",
-              "&:hover": {
-                backgroundColor: "action.hover",
-              },
             }}
             secondaryAction={
-              <Box sx={{ display: "flex", gap: 1 }}>
+              <Stack sx={{ flexDirection: "column", gap: 1 }}>
                 <IconButton
                   edge="end"
                   onClick={() => onEdit(product)}
-                  sx={{ color: "primary.main" }}
+                  sx={{
+                    color: "primary.main",
+                    borderRadius: 2,
+                    bgcolor: alpha(theme.palette.primary.main, 0.1),
+                    border: 1,
+                  }}
                 >
                   <EditIcon />
                 </IconButton>
                 <IconButton
                   edge="end"
                   onClick={() => onDelete(product.id)}
-                  sx={{ color: "error.main" }}
+                  sx={{
+                    borderRadius: 2,
+
+                    color: "error.main",
+                    bgcolor: alpha(theme.palette.error.main, 0.1),
+                    border: 1,
+                  }}
                 >
                   <DeleteIcon />
                 </IconButton>
-              </Box>
+              </Stack>
             }
           >
             <ListItemAvatar>
               <Avatar
                 sx={{
                   backgroundColor: "primary.main",
-                  width: 56,
-                  height: 56,
+                  width: 90,
+                  height: 90,
+                  mr: 3,
                 }}
               >
                 {product.name.charAt(0).toUpperCase()}
@@ -127,9 +138,8 @@ export function ProductList({ products, onEdit, onDelete }: ProductListProps) {
                     <Box
                       sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
                     >
-                      <MoneyIcon sx={{ fontSize: 16, color: "success.main" }} />
                       <Typography
-                        variant="body2"
+                        variant="h6"
                         color="success.main"
                         fontWeight="600"
                       >
