@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Typography,
@@ -99,12 +99,19 @@ export function ProductsPage() {
     startIndex + ITEMS_PER_PAGE
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     setCurrentPage(1);
   }, [state.filters]);
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Paper
+      variant="outlined"
+      sx={{
+        p: 4,
+        borderRadius: 3,
+        height: `calc(100vh - 120px)`,
+      }}
+    >
       {/* Header */}
       <Box
         sx={{
@@ -217,43 +224,45 @@ export function ProductsPage() {
         </Alert>
       )}
 
-      {/* Products Display */}
-      {paginatedProducts.length > 0 && (
-        <>
-          {state.viewMode === "grid" ? (
-            <Grid container spacing={3}>
-              {paginatedProducts.map((product) => (
-                <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
-                  <ProductCard
-                    product={product}
-                    onEdit={handleOpenForm}
-                    onDelete={handleDelete}
-                  />
-                </Grid>
-              ))}
-            </Grid>
-          ) : (
-            <ProductList
-              products={paginatedProducts}
-              onEdit={handleOpenForm}
-              onDelete={handleDelete}
-            />
-          )}
-
-          {/* Pagination */}
-          {totalPages > 1 && (
-            <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-              <Pagination
-                count={totalPages}
-                page={currentPage}
-                onChange={(_, page) => setCurrentPage(page)}
-                color="primary"
-                size="large"
+      <Stack sx={{ overflow: "auto", height: `calc(100% - 300px)`, m: 3 }}>
+        {/* Products Display */}
+        {paginatedProducts.length > 0 && (
+          <>
+            {state.viewMode === "grid" ? (
+              <Grid container spacing={3}>
+                {paginatedProducts.map((product) => (
+                  <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
+                    <ProductCard
+                      product={product}
+                      onEdit={handleOpenForm}
+                      onDelete={handleDelete}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            ) : (
+              <ProductList
+                products={paginatedProducts}
+                onEdit={handleOpenForm}
+                onDelete={handleDelete}
               />
-            </Box>
-          )}
-        </>
-      )}
+            )}
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+                <Pagination
+                  count={totalPages}
+                  page={currentPage}
+                  onChange={(_, page) => setCurrentPage(page)}
+                  color="primary"
+                  size="large"
+                />
+              </Box>
+            )}
+          </>
+        )}
+      </Stack>
 
       {/* Product Form */}
       <ProductForm
@@ -263,6 +272,6 @@ export function ProductsPage() {
         product={editingProduct}
         categories={CATEGORIES}
       />
-    </Box>
+    </Paper>
   );
 }
